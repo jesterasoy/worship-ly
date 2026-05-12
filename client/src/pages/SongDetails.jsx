@@ -73,7 +73,24 @@ export default function SongDetails() {
     const videoSearchQuery = encodeURIComponent(`${songFromApi?.trackName || savedData?.title} ${songFromApi?.artistName || savedData?.artist} worship lyrics`);
     const videoEmbedUrl = `https://www.youtube.com/embed?listType=search&list=${videoSearchQuery}`;
 
-    // ... in your return JSX, above the chord display section ...
+    const handleDelete = () => {
+        // 1. Confirm with the user so they don't accidentally delete it
+        const confirmed = window.confirm("Are you sure you want to remove this song from your library?");
+
+        if (confirmed) {
+            // 2. Get the current library
+            const library = JSON.parse(localStorage.getItem('myWorshipLibrary')) || [];
+
+            // 3. Filter out the song with the matching ID
+            const updatedLibrary = library.filter(s => String(s.itunesId) !== String(id));
+
+            // 4. Save the new array back to localStorage
+            localStorage.setItem('myWorshipLibrary', JSON.stringify(updatedLibrary));
+
+            // 5. Navigate away (e.g., back to the library)
+            navigate('/library');
+        }
+    };
     return (
         <div className="min-h-screen bg-[#050505] text-white p-6 md:p-12">
             <div className="max-w-3xl mx-auto">
@@ -118,8 +135,8 @@ export default function SongDetails() {
                     </div>
                 </div>
                 {/* Preview of the Song */}
-                <div>
-                    <div className="mb-8">
+                <div className='flex justify-between items-center mb-5'>
+                    <div className="">
                         <button
                             onClick={() => setShowVideo(!showVideo)}
                             className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-sm font-bold bg-zinc-900/50 px-4 py-2 rounded-xl border border-zinc-800"
@@ -140,6 +157,16 @@ export default function SongDetails() {
                                 ></iframe>
                             </div>
                         )}
+                    </div>
+                    <div className="flex items-center gap-4 border-zinc-900 pt-6">
+                        <button
+                            onClick={handleDelete}
+                            className="group flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-red-500/10 transition-all"
+                        >
+                            <span className="text-zinc-500 group-hover:text-red-500 text-xs font-bold uppercase tracking-widest">
+                                Delete Song
+                            </span>
+                        </button>
                     </div>
                 </div>
                 {/* Main Chord Display */}

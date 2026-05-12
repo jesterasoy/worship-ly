@@ -86,11 +86,16 @@ export default function Search() {
                 {/* --- NEW: MY SAVED LIBRARY SECTION --- */}
                 {isTrending && myLibrary.length > 0 && (
                     <div className="mb-12">
-                        <h2 className="text-emerald-500 font-bold text-xs uppercase tracking-[0.2em] mb-6">
-                            📚 My Saved Chords
-                        </h2>
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-emerald-500 font-bold text-xs uppercase tracking-[0.2em] ">
+                                📚 My Saved Chords
+                            </h2>
+                            <button className={` ${myLibrary.length >= 5 ? "bg-emerald-500 hover:bg-emerald-600" : ""} text-white py-2 px-6 rounded-full transition-colors`}>
+                                {`${myLibrary.length >= 5 ? `View All (${myLibrary.length})` : ""}`}
+                            </button>
+                        </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {myLibrary.map((song) => (
+                            {myLibrary.slice(0, 4).map((song) => (
                                 <div
                                     key={song.itunesId}
                                     onClick={() => navigate(`/song/${song.itunesId}`, { state: { song } })}
@@ -98,7 +103,7 @@ export default function Search() {
                                 >
                                     <img src={song.artwork} className="h-12 w-12 rounded-lg" alt="cover" />
                                     <div className="flex-1">
-                                        <h3 className="font-bold text-sm truncate">{song.title}</h3>
+                                        <h3 className="font-bold text-sm line-clamp-1">{song.title}</h3>
                                         <p className="text-zinc-500 text-xs italic">Key: {song.key}</p>
                                     </div>
                                     <span className="text-emerald-500 text-xs pr-2">Saved</span>
