@@ -88,12 +88,12 @@ export default function SongDetails() {
             localStorage.setItem('myWorshipLibrary', JSON.stringify(updatedLibrary));
 
             // 5. Navigate away (e.g., back to the library)
-            navigate('/library');
+            navigate('/mylibrary');
         }
     };
     return (
         <div className="min-h-screen bg-[#050505] text-white p-6 md:p-12">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-4xl mx-auto">
 
                 {/* Header */}
                 <div className="flex flex-col md:flex-row gap-8 items-center mb-12">

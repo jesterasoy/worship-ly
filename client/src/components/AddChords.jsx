@@ -58,7 +58,7 @@ export default function AddChords() {
             key: key,
             chords: chords,
             artwork: song.artworkUrl100,
-            previewUrl: song.previewUrl 
+            previewUrl: song.previewUrl
         };
         localStorage.setItem('myWorshipLibrary', JSON.stringify([newEntry, ...savedSongs]));
         navigate('/search');

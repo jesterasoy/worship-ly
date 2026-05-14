@@ -9,6 +9,7 @@ export default function Search() {
     const [myLibrary, setMyLibrary] = useState([]); // State for saved songs
     const navigate = useNavigate();
 
+
     // Load Local Library once on mount
     useEffect(() => {
         const saved = JSON.parse(localStorage.getItem('myWorshipLibrary')) || [];
@@ -90,7 +91,9 @@ export default function Search() {
                             <h2 className="text-emerald-500 font-bold text-xs uppercase tracking-[0.2em] ">
                                 📚 My Saved Chords
                             </h2>
-                            <button className={` ${myLibrary.length >= 5 ? "bg-emerald-500 hover:bg-emerald-600" : ""} text-white py-2 px-6 rounded-full transition-colors`}>
+                            <button
+                                onClick={() => navigate('/mylibrary')}
+                                className={` ${myLibrary.length >= 5 ? "bg-emerald-500 hover:bg-emerald-600 cursor-pointer" : ""} text-white py-2 px-6 rounded-full transition-colors`}>
                                 {`${myLibrary.length >= 5 ? `View All (${myLibrary.length})` : ""}`}
                             </button>
                         </div>

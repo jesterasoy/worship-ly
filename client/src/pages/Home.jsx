@@ -62,38 +62,45 @@ export default function Home() {
           <div className="flex justify-between items-center mb-8">
             <div>
               <h3 className="text-2xl font-bold">Your Songbook</h3>
-              <p className="text-zinc-500 text-sm">Continue where you left off</p>
+              <p className="text-zinc-500 text-sm">{`${library.length === 0 ? 'No songs in your library yet.' : `Continue where you left off with`}`}</p>
             </div>
             <button
-              onClick={() => navigate('/library')}
+              onClick={() => navigate('/mylibrary')}
               className={`${library.length >= 5 ? `px-6 py-2` : ''} rounded-full bg-white text-black text-sm font-bold hover:bg-emerald-500 transition-colors`}
             >
               {`${library.length >= 5 ? `View All (${library.length})` : ""} `}
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {library.slice(0, 4).map((song) => (
-              <div
-                key={song.itunesId}
-                onClick={() => navigate(`/song/${song.itunesId}`, { state: { song } })}
-                className="group cursor-pointer"
-              >
-                <div className="relative aspect-square mb-4 overflow-hidden rounded-2xl">
-                  <img
-                    src={song.artwork?.replace('100x100', '400x400')}
-                    className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                    alt=""
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                    <span className="text-xs font-bold tracking-widest uppercase">Open Sheet</span>
+          {library.length >= 1 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {library.slice(0, 4).map((song) => (
+                <div
+                  key={song.itunesId}
+                  onClick={() => navigate(`/song/${song.itunesId}`, { state: { song } })}
+                  className="group cursor-pointer"
+                >
+                  <div className="relative aspect-square mb-4 overflow-hidden rounded-2xl">
+                    <img
+                      src={song.artwork?.replace('100x100', '400x400')}
+                      className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                      alt=""
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                      <span className="text-xs font-bold tracking-widest uppercase">Open Sheet</span>
+                    </div>
                   </div>
+                  <h4 className="font-bold truncate group-hover:text-emerald-500 transition-colors">{song.title}</h4>
+                  <p className="text-zinc-500 text-sm truncate">{song.artist}</p>
                 </div>
-                <h4 className="font-bold truncate group-hover:text-emerald-500 transition-colors">{song.title}</h4>
-                <p className="text-zinc-500 text-sm truncate">{song.artist}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center gap-4 py-16">
+              <Heart className="w-12 h-12 fill-emerald-500" />
+              <p className="text-zinc-500 text-sm italic">Your saved songs will appear here.</p>
+            </div>
+          )}
         </section>
 
         {/* 2. THE MOMENTS SECTION */}

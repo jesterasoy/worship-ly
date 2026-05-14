@@ -31,7 +31,7 @@ export default function Footer() {
                         <ul className="space-y-4 text-zinc-500 text-sm">
                             <li><a href="/" className="hover:text-emerald-500 transition-colors">Home</a></li>
                             <li><a href="/search" className="hover:text-emerald-500 transition-colors">Search Songs</a></li>
-                            <li><a href="/library" className="hover:text-emerald-500 transition-colors">My Collection</a></li>
+                            <li><a href="/mylibrary" className="hover:text-emerald-500 transition-colors">My Library</a></li>
                         </ul>
                     </div>
 
